@@ -1,7 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Cell from './Cell';
+import styles from './Layout.module.css';
 
 export const Layout = function() {
-  const con = useState('Brian');
-  console.log({ con });
-  return <div>ch</div>;
+  return (
+    <div className={styles.layout}>
+      <div className={styles['layout-row']}>
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
+      <div className={styles['layout-row']}>
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
+      <div className={styles['layout-row']}>
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
+    </div>
+  );
 };

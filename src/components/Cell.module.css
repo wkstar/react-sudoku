@@ -1,0 +1,12 @@
+.cell {
+	height: 100px;
+	width: 100px;
+	border: solid 1px black;
+}
+
+.cell_input {
+	height: 100%;
+	width: 100%;
+	font-size: xx-large;
+	text-align: center;
+}

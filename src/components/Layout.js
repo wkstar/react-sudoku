@@ -6,7 +6,7 @@ export const Layout = function() {
   return (
     <div className={styles.layout}>
       <div className={styles['layout-row']}>
-        <Cell />
+        <Cell solution={1} />
         <Cell />
         <Cell />
         <Cell />

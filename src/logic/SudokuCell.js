@@ -10,7 +10,7 @@ export default class SudukoCell {
   }
 
   initialise(allCells) {
-    const neighboursIndexes = this.getNeighboursIndexes();
+    const neighboursIndexes = this.getNeighbourIndexes();
     this.neighbours = neighboursIndexes.map(cellIndex => allCells[cellIndex]);
   }
 
@@ -35,9 +35,10 @@ export default class SudukoCell {
   calculateValidSolutions() {
     if (this.validSolutions === null) {
       const neighbourSolutions = this.getNeighbourSolutions();
-      this.validSolutions = VALID_ANSWERS.filter(answer =>
-        neighbourSolutions.includes(answer)
+      this.validSolutions = this.shuffle(
+        VALID_ANSWERS.filter(answer => !neighbourSolutions.includes(answer))
       );
+      //console.log({ valid: this.validSolutions });
     }
   }
 
@@ -55,19 +56,37 @@ export default class SudukoCell {
 
   getNeighbourIndexes() {
     const boxCellCoords = this.getBoxCellCoords();
+    // console.log({
+    //   INDEX: this.index,
+    //   COORDS: this.coords,
+    //   boxCellCoords,
+    //   indexes: boxCellCoords.map(this.translateCoordsToIndex)
+    // });
     const rowCellCoords = this.getRowCellCoords();
+    // console.log({
+    //   rowCellCoords,
+    //   indexes: rowCellCoords.map(this.translateCoordsToIndex)
+    // });
     const columnCellCoords = this.getColumnCellCoords();
-    const neighbourIndexes = this.translateCoordsToIndex([
+    // console.log({
+    //   columnCellCoords,
+    //   indexes: columnCellCoords.map(this.translateCoordsToIndex)
+    // });
+    // console.log({ boxCellCoords, rowCellCoords, columnCellCoords });
+    const neighbourCoords = [
       ...boxCellCoords,
       ...rowCellCoords,
       ...columnCellCoords
-    ]);
+    ];
+    // console.log({ neighbourCoords });
+    const neighbourIndexes = neighbourCoords.map(this.translateCoordsToIndex);
+    // console.log({ neighbourIndexes });
     const uniqueNeighbourIndexes = new Set(neighbourIndexes);
 
     // Remove current cell from neighbours
     uniqueNeighbourIndexes.delete(this.index);
 
-    return uniqueNeighbourIndexes;
+    return [...uniqueNeighbourIndexes];
   }
 
   getBoxCellCoords() {
@@ -76,8 +95,8 @@ export default class SudukoCell {
       y: Math.floor(this.coords.y / BOX_LENGTH) * BOX_LENGTH
     };
     let boxCellCoords = [];
-    for (let xDifference = 0; i < BOX_LENGTH; i++) {
-      for (let yDifference = 0; j < BOX_LENGTH; j++) {
+    for (let yDifference = 0; yDifference < BOX_LENGTH; yDifference++) {
+      for (let xDifference = 0; xDifference < BOX_LENGTH; xDifference++) {
         const neighbourX = firstCellInBoxCoords.x + xDifference;
         const neighbourY = firstCellInBoxCoords.y + yDifference;
         boxCellCoords.push({ x: neighbourX, y: neighbourY }); // todo - mutation
@@ -86,7 +105,7 @@ export default class SudukoCell {
     return boxCellCoords;
   }
 
-  getColumnCellCoords() {
+  getRowCellCoords() {
     let columnCellCoords = [];
     for (let x = 0; x < GRID_SIZE; x++) {
       // todo - mutate
@@ -98,7 +117,7 @@ export default class SudukoCell {
     return columnCellCoords;
   }
 
-  getRowCellCoords() {
+  getColumnCellCoords() {
     let rowCellCoords = [];
     for (let y = 0; y < GRID_SIZE; y++) {
       // todo - mutate
@@ -112,8 +131,28 @@ export default class SudukoCell {
 
   getCoords() {
     return {
-      x: Math.floor(this.index / GRID_SIZE),
-      y: this.index % GRID_SIZE
+      x: this.index % GRID_SIZE,
+      y: Math.floor(this.index / GRID_SIZE)
     };
+  }
+
+  shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 }

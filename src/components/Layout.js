@@ -1,43 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Cell from './Cell';
 import styles from './Layout.module.css';
+import SudukoGrid from '../logic/SudukoGrid';
 
 export const Layout = function() {
+  const [sudukoGrid, setSudukoGrid] = useState(() => {
+    console.log('xxx');
+    return new SudukoGrid();
+  });
+  console.log(sudukoGrid);
+
+  const { cells } = sudukoGrid;
   return (
     <div className={styles.layout}>
       <div className={styles['layout-row']}>
-        <Cell solution={1} />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
+        <Cell key={0} cell={cells[0]} />
+        <Cell key={1} cell={cells[1]} />
       </div>
-      <div className={styles['layout-row']}>
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-      </div>
-      <div className={styles['layout-row']}>
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-        <Cell />
-      </div>
+      <div className={styles['layout-row']} />
+      <div className={styles['layout-row']} />
     </div>
   );
 };

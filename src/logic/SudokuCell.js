@@ -1,10 +1,13 @@
+import { shuffle } from '../helpers/random';
+
 const GRID_SIZE = 9;
 const VALID_ANSWERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const BOX_LENGTH = 3;
 
 export default class SudukoCell {
-  constructor(index) {
+  constructor(index, revealed) {
     this.index = index;
+    this.revealed = revealed;
     this.coords = this.getCoords(index);
     this.reset();
   }
@@ -19,12 +22,17 @@ export default class SudukoCell {
     this.validSolutions = null;
   }
 
+  // todo - get/set
   getSolution() {
     return this.solution;
   }
 
   setSolution(newSolution) {
     this.solution = newSolution;
+  }
+
+  getRevealed() {
+    return this.revealed;
   }
 
   getNextValidSolution() {
@@ -35,10 +43,9 @@ export default class SudukoCell {
   calculateValidSolutions() {
     if (this.validSolutions === null) {
       const neighbourSolutions = this.getNeighbourSolutions();
-      this.validSolutions = this.shuffle(
+      this.validSolutions = shuffle(
         VALID_ANSWERS.filter(answer => !neighbourSolutions.includes(answer))
       );
-      //console.log({ valid: this.validSolutions });
     }
   }
 
@@ -134,25 +141,5 @@ export default class SudukoCell {
       x: this.index % GRID_SIZE,
       y: Math.floor(this.index / GRID_SIZE)
     };
-  }
-
-  shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
   }
 }

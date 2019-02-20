@@ -10,3 +10,7 @@
 	font-size: xx-large;
 	text-align: center;
 }
+
+.cell_input_wrong {
+	background-color: red;
+}

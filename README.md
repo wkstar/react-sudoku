@@ -1,19 +1,22 @@
 
 ## Suduko by Thomas Mead
 
-I've used create-react-app to avoid writing boilerplate as much as possible, and React hooks so I could have a play with them.
+[Play now](https://wkstar.github.io/react-sudoku/)
 
-### Info
+Refresh to get a new puzzle.
 
-To run -
 
-`npm run start`.
+To run locally -
+
+`npm run start`
 
 To test -
 
 `npm run test`
 
-Refresh to get a new puzzle.
+### Info
+
+I've used create-react-app to avoid writing boilerplate as much as possible, and React hooks so I could have a play with them.
 
 Initial tiles are exposed at random. So it's not guaranteed that each puzzle is definitely solvable from the starting point, although the vast majority will be.
 There is a unique solution for each puzzle.

@@ -14,8 +14,9 @@ export const Layout = function() {
   return (
     <div className={styles.layout}>
       <div className={styles['layout-row']}>
-        <Cell key={0} cell={cells[0]} />
-        <Cell key={1} cell={cells[1]} />
+        {cells.map((cell, i) => (
+          <Cell key={i} cell={cell} />
+        ))}
       </div>
       <div className={styles['layout-row']} />
       <div className={styles['layout-row']} />

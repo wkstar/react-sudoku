@@ -16,7 +16,7 @@ export default function Cell(props) {
 
   return (
     <div className={styles.cell}>
-      <input className={styles.cell_input} value={answer} onChange={handleAnswerChange} />
+      <input className={styles.cell_input} value={cell.getSolution()} onChange={handleAnswerChange} />
     </div>
   );
 }

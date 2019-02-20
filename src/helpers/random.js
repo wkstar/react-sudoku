@@ -1,4 +1,8 @@
-// todo refactor?
+export const flipCoin = () => {
+  return Math.random() > 0.5;
+};
+
+// lifted from stack-overflow
 export const shuffle = array => {
   var currentIndex = array.length,
     temporaryValue,
@@ -17,8 +21,4 @@ export const shuffle = array => {
   }
 
   return array;
-};
-
-export const flipCoin = () => {
-  return Math.random() > 0.5;
 };

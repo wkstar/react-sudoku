@@ -4,7 +4,7 @@ import styles from './Cell.module.css';
 export default function Cell(props) {
   const { cell } = props;
   const [answer, setAnswer] = useState(() => {
-    if (cell.revealed) {
+    if (cell.getRevealed()) {
       return cell.getSolution();
     }
   });
@@ -20,13 +20,10 @@ export default function Cell(props) {
     setCorrect(isCorrect);
   };
 
-  let cellInputClass = styles.cell_input;
-  cellInputClass += ' ';
-  cellInputClass += (correct === false) ? styles.cell_input_wrong : '';
-
+  const cellInputWrongClass = (correct === false) ? styles.cell_input_wrong : '';
   return (
     <div className={styles.cell}>
-      <input className={cellInputClass} value={answer} onChange={handleAnswerChange} />
+      <input className={`${styles.cell_input} ${cellInputWrongClass}`} value={answer} onChange={handleAnswerChange} />
     </div>
   );
 }

@@ -4,11 +4,9 @@ import styles from './Layout.module.css';
 import SudukoGrid from '../logic/SudukoGrid';
 
 export const Layout = function() {
-  const [sudukoGrid, setSudukoGrid] = useState(() => {
-    console.log('xxx');
+  const [sudukoGrid] = useState(() => {
     return new SudukoGrid();
   });
-  console.log(sudukoGrid);
 
   const { cells } = sudukoGrid;
   return (
@@ -18,8 +16,6 @@ export const Layout = function() {
           <Cell key={i} cell={cell} />
         ))}
       </div>
-      <div className={styles['layout-row']} />
-      <div className={styles['layout-row']} />
     </div>
   );
 };
